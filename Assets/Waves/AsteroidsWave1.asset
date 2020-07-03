@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5310cfb21468286429bea6fc6e872e1e, type: 3}
+  m_Name: AsteroidsWave1
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 4148653424276049708, guid: 581b992777b348742aa0ba2f92ead1d0,
+    type: 3}
+  pathPrefab: {fileID: 7960747045149072032, guid: e6aa421ce81e65e448bfaf57c6f354dd,
+    type: 3}
+  timeBeetwenSpawns: 0.2
+  spawnRandomFactor: 0.3
+  numberOfEnemies: 3
+  moveSpeed: 18
