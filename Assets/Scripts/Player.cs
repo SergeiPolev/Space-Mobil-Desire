@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    GameSession gameSession;
+    float gameDifficult = 1f;
     [Header("Player Settings")]
     [SerializeField] float moveSpeed = 10f;
     [SerializeField] float padding = 1f;
@@ -29,7 +31,25 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameSession = FindObjectOfType<GameSession>();
         SetWorldBoundaries();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (gameSession) gameDifficult = gameSession.GetDifficultModiffier();
+        if (!dead)
+        {
+            Move();
+            Fire();
+        }
+        else if (!deathDone)
+        {
+            StopMusic();
+            Invoke("Explosion", 2f);
+            Invoke("GameOver", 3f);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D otherObject)
@@ -37,7 +57,6 @@ public class Player : MonoBehaviour
         DamageDealer damageDealer = otherObject.gameObject.GetComponent<DamageDealer>();
         if (!damageDealer) { return; }
         if (health > 0) { ProcessHit(damageDealer); }
-       
     }
 
     private void ProcessHit(DamageDealer damageDealer)
@@ -56,7 +75,10 @@ public class Player : MonoBehaviour
     }
     public void AddHealth()
     {
-        health += 100;
+        if (health < 300)
+        {
+            health += 100;
+        }
     }
     private void Explosion()
     {
@@ -64,36 +86,12 @@ public class Player : MonoBehaviour
         Destroy(explosion, durationOfExplosion);
         gameObject.SetActive(false);
     }
-
     private void StopMusic()
     {
         StopCoroutine(firingCoroutine);
         deathDone = true;
         gameObject.GetComponent<AudioSource>().Stop();
     }
-
-    void GameOver()
-    {
-        level.LoadGameOver();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (!dead)
-        {
-            Move();
-            Fire();
-        }
-        else if (!deathDone)
-        {
-            StopMusic();
-            Invoke("Explosion", 2f);
-            Invoke("GameOver", 3f);
-        }
-        
-    }
-
     private void Fire()
     {
         if (Input.GetButtonDown("Fire1"))
@@ -105,17 +103,15 @@ public class Player : MonoBehaviour
             StopCoroutine(firingCoroutine);
         }
     }
-
     IEnumerator FireContinuously()
     {
         while (true)
         {
             GameObject laser = Instantiate(laserPrefab, transform.position, Quaternion.identity);
             laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, projectileSpeed);
-            yield return new WaitForSeconds(projectileFirePeriod);
+            yield return new WaitForSeconds(projectileFirePeriod * gameDifficult);
         }
     }
-
     private void Move()
     {
         var deltaX = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
@@ -131,5 +127,9 @@ public class Player : MonoBehaviour
         xMax = gameCamera.ViewportToWorldPoint(new Vector3(1, 0, 0)).x - padding;
         yMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + padding;
         yMax = gameCamera.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - padding;
+    }
+    void GameOver()
+    {
+        level.LoadGameOver();
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameSession : MonoBehaviour
 {
     [SerializeField] int addHealthAtScorePoint = 1000;
+    float difficultModiffier = 1f;
     int score = 0;
     int healthScoreConnection = 0;
     int health = 100;
@@ -53,9 +54,16 @@ public class GameSession : MonoBehaviour
         healthScoreConnection += scoreValue;
         if (healthScoreConnection >= addHealthAtScorePoint)
         {
+            difficultModiffier += 0.4f;
+            Debug.Log(difficultModiffier);
             player.AddHealth();
             healthScoreConnection -= addHealthAtScorePoint;
         }
+    }
+
+    public float GetDifficultModiffier()
+    {
+        return difficultModiffier;
     }
     
     public void ResetGame()

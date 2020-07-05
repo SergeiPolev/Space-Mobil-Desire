@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    GameSession gameSession;
     [Header("Enemy Settings")]
     [SerializeField] float health = 100f;
     [SerializeField] int scoreValue = 100;
@@ -23,17 +24,18 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         shotCounter = UnityEngine.Random.Range(minTimeBetweenShots, maxTimeBetweenShots);
+        gameSession = FindObjectOfType<GameSession>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (laserPrefab) { CountdownAndShoot(); }
+        if (laserPrefab && gameSession) { CountdownAndShoot(); }
     }
 
     private void CountdownAndShoot()
     {
-        shotCounter -= Time.deltaTime;
+        shotCounter -= Time.deltaTime * gameSession.GetDifficultModiffier();
         if (shotCounter <= 0f)
         {
             Fire();
@@ -43,7 +45,7 @@ public class Enemy : MonoBehaviour
     private void Fire()
     {
         GameObject laser = Instantiate(laserPrefab, transform.position, Quaternion.identity);
-        laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -laserSpeed);
+        laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -laserSpeed * gameSession.GetDifficultModiffier());
         shotCounter = UnityEngine.Random.Range(minTimeBetweenShots, maxTimeBetweenShots);
     }
 

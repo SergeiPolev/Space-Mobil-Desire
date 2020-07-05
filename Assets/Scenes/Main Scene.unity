@@ -304,6 +304,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29c35a703d4db7a4b81a37cb96d4445f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1344236479 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7969922483366529596, guid: 1ca6b13950167c645b6cd2fb9228c270,
+    type: 3}
+  m_PrefabInstance: {fileID: 7969922483473212484}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b0dad5b80d2c144c962d6f29e96e2ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1364281989 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3507817271452369407, guid: 460ff30c54aa4c04f92de0636fc229f4,
@@ -389,7 +401,7 @@ PrefabInstance:
       objectReference: {fileID: 8094490865606461417}
     - target: {fileID: 1733605573, guid: 870c6fc1456568f4dbde6b51abc4966e, type: 3}
       propertyPath: projectileFirePeriod
-      value: 0.15
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6678938215190469076, guid: 870c6fc1456568f4dbde6b51abc4966e,
         type: 3}
@@ -727,6 +739,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1153505502507614329, guid: de72dd9501401e1429bb14459a8f4083,
+        type: 3}
+      propertyPath: gameSession
+      value: 
+      objectReference: {fileID: 1344236479}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de72dd9501401e1429bb14459a8f4083, type: 3}
 --- !u!1001 &1721339081525661950
@@ -1575,6 +1592,11 @@ PrefabInstance:
         type: 3}
       propertyPath: addHealthAtScorePoint
       value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7969922483366529596, guid: 1ca6b13950167c645b6cd2fb9228c270,
+        type: 3}
+      propertyPath: difficultModiffier
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7969922483366529597, guid: 1ca6b13950167c645b6cd2fb9228c270,
         type: 3}

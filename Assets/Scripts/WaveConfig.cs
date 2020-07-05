@@ -11,7 +11,12 @@ public class WaveConfig : ScriptableObject
     [SerializeField] float spawnRandomFactor = 0.3f;
     [SerializeField] int numberOfEnemies = 5;
     [SerializeField] float moveSpeed = 2f;
+    GameSession gameSession;
 
+    private void Awake()
+    {
+        gameSession = FindObjectOfType<GameSession>();
+    }
     public GameObject GetEnemyPrefab()
     { return enemyPrefab; }
     public List<Transform> GetWaypoints()
@@ -30,5 +35,8 @@ public class WaveConfig : ScriptableObject
     public int GetNumberOfEnemies()
     { return numberOfEnemies; }
     public float GetMoveSpeed()
-    { return moveSpeed; }
+    { if (gameSession) { return moveSpeed * gameSession.GetDifficultModiffier(); }
+        else
+        { return moveSpeed; }
+    }
 }
